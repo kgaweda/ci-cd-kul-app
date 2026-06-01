@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Checkout') {
-            steps {
-                echo 'Downloading source code...'
-            }
-        }
-
         stage('Test') {
             steps {
                 sh '''
