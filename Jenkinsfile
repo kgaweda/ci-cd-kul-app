@@ -3,9 +3,19 @@ pipeline {
 
     stages {
 
-        stage('Build Docker Image') {
+        stage('Test') {
             steps {
-                sh 'docker build -t flask-demo .'
+                sh '''
+                python3 -m py_compile app.py
+                '''
+            }
+        }
+
+        stage('Build') {
+            steps {
+                sh '''
+                docker build -t flask-demo .
+                '''
             }
         }
 
@@ -16,9 +26,9 @@ pipeline {
                 docker rm flask-demo || true
 
                 docker run -d \
-                  --name flask-demo \
-                  -p 5000:5000 \
-                  flask-demo
+                    --name flask-demo \
+                    -p 5000:5000 \
+                    flask-demo
                 '''
             }
         }
